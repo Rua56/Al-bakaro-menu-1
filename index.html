@@ -787,6 +787,51 @@
     .menu-section[data-id="bibite"]         .menu-item::before { background: linear-gradient(180deg, #1a7a6e, #16a085); }
     .menu-section[data-id="analcolici"]     .menu-item::before { background: linear-gradient(180deg, #4a7c59, #27ae60); }
 
+
+    /* ── Saluto ora del giorno ── */
+    .header-greeting {
+      font-family: 'Cinzel', serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      color: var(--amber);
+      opacity: 0.9;
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+      position: relative;
+      animation: splashLogoIn 0.8s ease both;
+    }
+
+
+    /* ── Citazione del giorno ── */
+    .header-quote {
+      font-family: 'Lora', serif;
+      font-style: italic;
+      font-size: 0.78rem;
+      color: var(--parchment);
+      opacity: 0.7;
+      max-width: 280px;
+      margin: 0.5rem auto 0;
+      line-height: 1.5;
+      letter-spacing: 0.02em;
+      position: relative;
+    }
+    .header-quote::before {
+      content: '❝';
+      font-style: normal;
+      color: var(--amber);
+      opacity: 0.8;
+      margin-right: 0.2rem;
+      font-size: 0.85rem;
+    }
+    .header-quote::after {
+      content: '❞';
+      font-style: normal;
+      color: var(--amber);
+      opacity: 0.8;
+      margin-left: 0.2rem;
+      font-size: 0.85rem;
+    }
+
   </style>
 </head>
 <body>
@@ -889,6 +934,7 @@
 <header>
   <canvas id="bubblesCanvas"></canvas>
   <div id="candle-flame">🕯️</div>
+  <div class="header-greeting" id="greeting"></div>
   <!-- Logo completo Al Bakaro — vino & tartine -->
   <div class="header-logo">
     <img
@@ -905,6 +951,7 @@
   <div class="header-divider">
     <span class="header-divider-icon">✦ · ✦</span>
   </div>
+  <p class="header-quote" id="daily-quote"></p>
 
   <!-- Social -->
   <div class="social-bar">
@@ -1800,6 +1847,114 @@ function initAnimations() {
    INIT
 ════════════════════════════════════════ */
 render();
+
+/* ════════════════════════════════════════
+   CITAZIONE DEL GIORNO
+════════════════════════════════════════ */
+(function() {
+  const quotes = {
+    it: [
+      "Il vino è la risposta poetica al silenzio della terra — Lunedì con stile",                     // Lunedì
+      "In vino veritas. Nel calice, la verità di chi siamo davvero",                                   // Martedì
+      "Un pasto senza vino è come un giorno senza sole — Anthelme Brillat-Savarin",                   // Mercoledì
+      "Il vino è la luce del sole, tenuta insieme dall'acqua — Galileo Galilei",                      // Giovedì
+      "Il buon vino è una creatura buona se si usa con buon senso — Shakespeare",                      // Venerdì
+      "La vita è troppo breve per bere vini mediocri — Johann Wolfgang von Goethe",                   // Sabato
+      "Il vino è il canto della terra verso il cielo — Platone",                                      // Domenica
+    ],
+    en: [
+      "Wine is the poetic answer to the silence of the earth — Monday with style",
+      "In vino veritas. In the glass, the truth of who we really are",
+      "A meal without wine is like a day without sunshine — Brillat-Savarin",
+      "Wine is sunlight, held together by water — Galileo Galilei",
+      "Good wine is a good familiar creature if it be well used — Shakespeare",
+      "Life is too short to drink bad wine — Johann Wolfgang von Goethe",
+      "Wine is the song of the earth to the sky — Plato",
+    ],
+    de: [
+      "Wein ist die poetische Antwort auf die Stille der Erde — Montag mit Stil",
+      "In vino veritas. Im Glas die Wahrheit, wer wir wirklich sind",
+      "Eine Mahlzeit ohne Wein ist wie ein Tag ohne Sonne — Brillat-Savarin",
+      "Wein ist Sonnenlicht, zusammengehalten vom Wasser — Galileo Galilei",
+      "Guter Wein ist ein gutes vertrautes Geschöpf — Shakespeare",
+      "Das Leben ist zu kurz, um schlechten Wein zu trinken — Goethe",
+      "Wein ist das Lied der Erde zum Himmel — Platon",
+    ],
+  };
+
+  function updateQuote() {
+    const el = document.getElementById('daily-quote');
+    if (!el) return;
+    const day = new Date().getDay(); // 0=domenica, 1=lunedì, ...6=sabato
+    const idx = day === 0 ? 6 : day - 1; // mappa a 0=lunedì...6=domenica
+    const list = quotes[currentLang] || quotes['it'];
+    el.textContent = list[idx];
+  }
+
+  updateQuote();
+
+  // Aggiorna al cambio lingua
+  const _origSetLangQuote = window.setLang;
+  window.setLang = function(lang) {
+    if (_origSetLangQuote) _origSetLangQuote(lang);
+    setTimeout(updateQuote, 50);
+  };
+})();
+
+/* ════════════════════════════════════════
+   SALUTO ORA DEL GIORNO
+════════════════════════════════════════ */
+(function() {
+  const greetings = {
+    it: [
+      { from:  5, to: 11, text: '🌅 Buongiorno',           sub: 'Un caffè o qualcosa di più?' },
+      { from: 11, to: 14, text: '☀️ Buon pranzo',           sub: 'Cicchetti freschi di giornata' },
+      { from: 14, to: 18, text: '🌤️ Buon pomeriggio',       sub: 'Orario ideale per un bianco fresco' },
+      { from: 18, to: 21, text: '🍷 Buon aperitivo',        sub: 'La prima cicchetteria di Gorizia' },
+      { from: 21, to: 24, text: '🌙 Buona serata',          sub: 'Vino & tartine sotto le stelle' },
+      { from:  0, to:  5, text: '🌃 Buona notte',           sub: 'Ancora qui? Offriamo un ultimo calice' },
+    ],
+    en: [
+      { from:  5, to: 11, text: '🌅 Good morning',          sub: 'Coffee or something stronger?' },
+      { from: 11, to: 14, text: '☀️ Good lunch',             sub: 'Fresh cicchetti of the day' },
+      { from: 14, to: 18, text: '🌤️ Good afternoon',        sub: 'Perfect for a crisp white wine' },
+      { from: 18, to: 21, text: '🍷 Happy aperitivo',        sub: 'The first cicchetteria in Gorizia' },
+      { from: 21, to: 24, text: '🌙 Good evening',           sub: 'Wine & tartines under the stars' },
+      { from:  0, to:  5, text: '🌃 Good night',             sub: 'Still here? One last glass?' },
+    ],
+    de: [
+      { from:  5, to: 11, text: '🌅 Guten Morgen',          sub: 'Kaffee oder etwas Stärkeres?' },
+      { from: 11, to: 14, text: '☀️ Guten Appetit',          sub: 'Frische Cicchetti des Tages' },
+      { from: 14, to: 18, text: '🌤️ Guten Nachmittag',      sub: 'Ideal für einen frischen Weißwein' },
+      { from: 18, to: 21, text: '🍷 Guten Aperitivo',        sub: 'Die erste Cicchetteria in Görz' },
+      { from: 21, to: 24, text: '🌙 Guten Abend',            sub: 'Wein & Tartines unter den Sternen' },
+      { from:  0, to:  5, text: '🌃 Gute Nacht',             sub: 'Noch hier? Ein letztes Glas?' },
+    ],
+  };
+
+  function updateGreeting() {
+    const el = document.getElementById('greeting');
+    if (!el) return;
+    const hour = new Date().getHours();
+    const list = greetings[currentLang] || greetings['it'];
+    const slot = list.find(g => {
+      if (g.from < g.to) return hour >= g.from && hour < g.to;
+      return hour >= g.from || hour < g.to; // mezzanotte
+    });
+    if (slot) el.textContent = slot.text;
+  }
+
+  // Aggiorna subito e poi ogni 10 minuti
+  updateGreeting();
+  setInterval(updateGreeting, 600000);
+
+  // Aggiorna anche al cambio lingua
+  const _origSetLang = window.setLang;
+  window.setLang = function(lang) {
+    if (_origSetLang) _origSetLang(lang);
+    setTimeout(updateGreeting, 50);
+  };
+})();
 
 /* ════════════════════════════════════════
    MODALITÀ NOTTURNA
