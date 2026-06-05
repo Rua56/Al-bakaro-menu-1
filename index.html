@@ -100,6 +100,51 @@
       filter: drop-shadow(0 3px 14px rgba(0,0,0,0.45));
     }
 
+    /* ── Claim ── */
+    .header-claim {
+      font-family: 'Lora', serif;
+      font-style: italic;
+      font-size: 0.95rem;
+      color: var(--honey);
+      letter-spacing: 0.12em;
+      margin-top: 0.4rem;
+      position: relative;
+      opacity: 0.9;
+    }
+
+    /* ── Social links ── */
+    .social-bar {
+      display: flex;
+      justify-content: center;
+      gap: 1.2rem;
+      margin-top: 1rem;
+      position: relative;
+    }
+
+    .social-link {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--parchment);
+      text-decoration: none;
+      font-family: 'Cinzel', serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      opacity: 0.75;
+      border: 1px solid rgba(245,236,215,0.25);
+      padding: 0.35rem 0.9rem;
+      border-radius: 2px;
+      transition: opacity 0.2s, border-color 0.2s;
+    }
+
+    .social-link:hover {
+      opacity: 1;
+      border-color: var(--amber);
+      color: var(--amber);
+    }
+
+    .social-icon { font-size: 1rem; }
+
     /* ── Divisore ornamentale ── */
     .header-divider {
       display: flex;
@@ -452,10 +497,21 @@
   </div>
 
   <h1>Al Bakaro</h1>
+  <p class="header-claim" data-t="claim">La prima cicchetteria di Gorizia</p>
 
   <!-- Divisore ornamentale con stelle veneziane -->
   <div class="header-divider">
     <span class="header-divider-icon">✦ · ✦</span>
+  </div>
+
+  <!-- Social -->
+  <div class="social-bar">
+    <a class="social-link" href="https://www.facebook.com/share/18wC65zKiw/?mibextid=wwXIfr" target="_blank" rel="noopener">
+      <span class="social-icon">📘</span> Facebook
+    </a>
+    <a class="social-link" href="https://www.instagram.com/al_bakaro?igsh=cjZsenZxMzF5YzBr" target="_blank" rel="noopener">
+      <span class="social-icon">📷</span> Instagram
+    </a>
   </div>
 </header>
 
@@ -489,6 +545,7 @@
 ════════════════════════════════════════ */
 const i18n = {
   it: {
+    claim: "La prima cicchetteria di Gorizia",
     search: "Cerca nel menù…",
     footer: "I prezzi sono IVA inclusa",
     all: "Tutto",
@@ -499,6 +556,7 @@ const i18n = {
     empty: "Nessun prodotto trovato.",
   },
   en: {
+    claim: "The first cicchetteria in Gorizia",
     search: "Search the menu…",
     footer: "All prices include VAT",
     all: "All",
@@ -509,6 +567,7 @@ const i18n = {
     empty: "No items found.",
   },
   de: {
+    claim: "Die erste Cicchetteria in Görz",
     search: "Menü durchsuchen…",
     footer: "Alle Preise inkl. MwSt.",
     all: "Alles",
@@ -529,7 +588,7 @@ const MENU = [
   {
     id: "vini-bianchi",
     icon: "🥂",
-    name: { it: "Vini Bianchi", en: "White Wines", de: "Weißweine" },
+    name: { it: "Vini Bianchi — in mescita al calice", en: "White Wines — by the glass", de: "Weißweine — offen ausgeschenkt" },
     items: [
       { name: { it: "Pinot Bianco — Toros", en: "Pinot Blanc — Toros", de: "Weißburgunder — Toros" }, desc: { it: "Friuli Collio, fresco e minerale", en: "Friuli Collio, fresh and mineral", de: "Friaul Collio, frisch und mineralisch" }, price: "6.00", tags: [] },
       { name: { it: "Chardonnay — Toros", en: "Chardonnay — Toros", de: "Chardonnay — Toros" }, desc: { it: "Friuli Collio, elegante con note di frutta gialla", en: "Friuli Collio, elegant with yellow fruit notes", de: "Friaul Collio, elegant mit Gelbfrucht-Noten" }, price: "5.50", tags: [] },
@@ -548,7 +607,7 @@ const MENU = [
   {
     id: "vini-rossi",
     icon: "🍷",
-    name: { it: "Vini Rossi", en: "Red Wines", de: "Rotweine" },
+    name: { it: "Vini Rossi — in mescita al calice", en: "Red Wines — by the glass", de: "Rotweine — offen ausgeschenkt" },
     items: [
       { name: { it: "Cabernet Franc — Castelvecchio", en: "Cabernet Franc — Castelvecchio", de: "Cabernet Franc — Castelvecchio" }, desc: { it: "Carso, speziato con note di peperone verde", en: "Karst, spicy with green pepper notes", de: "Karst, würzig mit grüner Paprika-Note" }, price: "5.00", tags: [] },
       { name: { it: "Cabernet Sauvignon — Castello di Spessa", en: "Cabernet Sauvignon — Castello di Spessa", de: "Cabernet Sauvignon — Castello di Spessa" }, desc: { it: "Collio DOC, tannico ed elegante", en: "Collio DOC, tannic and elegant", de: "Collio DOC, tanninreich und elegant" }, price: "4.50", tags: [] },
