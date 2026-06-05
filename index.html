@@ -832,6 +832,138 @@
       font-size: 0.85rem;
     }
 
+
+    /* ══ Header gradiente animato che "respira" ══ */
+    @keyframes headerBreathe {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    header {
+      background: linear-gradient(135deg,
+        var(--bark) 0%, var(--espresso) 25%,
+        var(--walnut) 50%, #4a2010 75%, var(--bark) 100%);
+      background-size: 300% 300%;
+      animation: headerBreathe 10s ease infinite;
+    }
+
+    /* ══ Logo bagliore periodico ══ */
+    @keyframes logoGlow {
+      0%,85%,100% { filter: drop-shadow(0 3px 14px rgba(0,0,0,0.5)); }
+      88%  { filter: drop-shadow(0 3px 14px rgba(0,0,0,0.5))
+                     drop-shadow(0 0 18px rgba(193,127,60,0.7))
+                     drop-shadow(0 0 35px rgba(193,127,60,0.35)); }
+      92%  { filter: drop-shadow(0 3px 14px rgba(0,0,0,0.5)); }
+      95%  { filter: drop-shadow(0 3px 14px rgba(0,0,0,0.5))
+                     drop-shadow(0 0 12px rgba(193,127,60,0.5)); }
+    }
+    .header-logo img {
+      animation: logoGlow 8s ease-in-out infinite;
+    }
+    body.night .header-logo img {
+      animation: logoGlow 8s ease-in-out infinite, flicker1 2.5s ease-in-out infinite;
+    }
+
+    /* ══ Glassmorphism al tap sulle card ══ */
+    .menu-item {
+      transition: transform 0.18s ease, box-shadow 0.18s ease,
+                  border-color 0.18s ease, background 0.3s ease,
+                  backdrop-filter 0.3s ease;
+    }
+    .menu-item.tapped {
+      background: rgba(255,255,255,0.65) !important;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-color: rgba(193,127,60,0.6) !important;
+      box-shadow: 0 8px 32px rgba(193,127,60,0.2),
+                  inset 0 0 0 1px rgba(255,255,255,0.4) !important;
+      transform: translateY(-2px) scale(1.01);
+    }
+    body.night .menu-item.tapped {
+      background: rgba(40,20,8,0.7) !important;
+      box-shadow: 0 8px 32px rgba(193,127,60,0.25),
+                  inset 0 0 0 1px rgba(193,127,60,0.2) !important;
+    }
+
+    /* ══ Tap to reveal descrizione ══ */
+    .item-desc {
+      overflow: hidden;
+      max-height: 0;
+      opacity: 0;
+      transition: max-height 0.4s cubic-bezier(0.16,1,0.3,1),
+                  opacity 0.3s ease,
+                  margin 0.3s ease;
+      margin-top: 0;
+    }
+    .item-desc.revealed {
+      max-height: 6rem;
+      opacity: 1;
+      margin-top: 0.25rem;
+    }
+    /* Indicatore "tocca per scoprire" */
+    .item-name {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.4rem;
+    }
+    .item-name::after {
+      content: '›';
+      font-size: 0.85rem;
+      color: var(--amber);
+      opacity: 0.5;
+      transition: transform 0.3s ease, opacity 0.2s;
+      flex-shrink: 0;
+      font-style: normal;
+    }
+    .item-name.open::after {
+      transform: rotate(90deg);
+      opacity: 1;
+    }
+
+    /* ══ Contatore calici nell'header ══ */
+    #glass-counter {
+      display: none;
+      align-items: center;
+      gap: 0.35rem;
+      position: absolute;
+      top: 0.9rem;
+      left: 1rem;
+      background: rgba(44,26,14,0.6);
+      border: 1px solid rgba(193,127,60,0.3);
+      border-radius: 20px;
+      padding: 0.25rem 0.6rem;
+      font-family: 'Cinzel', serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      color: var(--parchment);
+      backdrop-filter: blur(6px);
+      z-index: 10;
+    }
+    #glass-counter.visible { display: flex; }
+    #glass-counter-num {
+      color: var(--amber);
+      font-weight: 700;
+      transition: transform 0.2s cubic-bezier(0.16,1,0.3,1);
+    }
+    #glass-counter-num.bump {
+      transform: scale(1.5);
+    }
+
+    /* ══ Particelle categoria ══ */
+    .cat-particle {
+      position: fixed;
+      pointer-events: none;
+      z-index: 9997;
+      font-size: 0.85rem;
+      animation: particleFly 0.7s ease-out forwards;
+    }
+    @keyframes particleFly {
+      0%   { opacity: 1; transform: translate(0,0) scale(1); }
+      100% { opacity: 0; transform: translate(var(--px), var(--py)) scale(0.3); }
+    }
+
   </style>
 </head>
 <body>
@@ -934,6 +1066,11 @@
 <header>
   <canvas id="bubblesCanvas"></canvas>
   <div id="candle-flame">🕯️</div>
+  <div id="glass-counter">
+    <span>🍷</span>
+    <span id="glass-counter-num">0</span>
+    <span>calici</span>
+  </div>
   <div class="header-greeting" id="greeting"></div>
   <!-- Logo completo Al Bakaro — vino & tartine -->
   <div class="header-logo">
@@ -1401,7 +1538,7 @@ function buildCatNav() {
   const all = document.createElement('button');
   all.className = 'cat-btn' + (currentCat === 'all' ? ' active' : '');
   all.textContent = t('all');
-  all.onclick = () => { currentCat = 'all'; render(true); };
+  all.onclick = () => { currentCat = 'all'; spawnCatParticles(CAT_COLORS['all'] || '#c17f3c'); render(true); };
   nav.appendChild(all);
 
   MENU.forEach(sec => {
@@ -1409,7 +1546,7 @@ function buildCatNav() {
     btn.className = 'cat-btn' + (currentCat === sec.id ? ' active' : '');
     const count = sec.items.length;
     btn.innerHTML = `${sec.icon} ${sec.name[currentLang]}<span class="cat-badge">${count}</span>`;
-    btn.onclick = () => { currentCat = sec.id; render(true); };
+    btn.onclick = () => { currentCat = sec.id; spawnCatParticles(CAT_COLORS[sec.id] || '#c17f3c'); render(true); };
     nav.appendChild(btn);
   });
 
@@ -1651,13 +1788,14 @@ function vibrate(pattern) {
 function toggleOrder(itemName, itemPrice, itemCat, btn) {
   if (myOrder[itemName]) {
     delete myOrder[itemName];
-    vibrate(30); // rimozione — breve
+    vibrate(30);
   } else {
     myOrder[itemName] = { name: itemName, price: itemPrice, cat: itemCat, qty: 1 };
-    vibrate([20, 60, 40]); // aggiunta — doppio tocco
+    vibrate([20, 60, 40]);
     if (btn) flyGlassToFab(btn);
   }
   updateOrderUI();
+  updateGlassCounter();
 }
 
 function updateOrderUI() {
@@ -1847,6 +1985,95 @@ function initAnimations() {
    INIT
 ════════════════════════════════════════ */
 render();
+
+/* ════════════════════════════════════════
+   EFFETTI INTERATTIVI
+════════════════════════════════════════ */
+
+// ── Glassmorphism + tap to reveal ──
+document.addEventListener('click', e => {
+  const card = e.target.closest('.menu-item');
+  if (!card) return;
+
+  // Glassmorphism temporaneo
+  card.classList.add('tapped');
+  setTimeout(() => card.classList.remove('tapped'), 600);
+
+  // Tap to reveal descrizione (solo sul nome)
+  const nameEl = e.target.closest('.item-name');
+  if (nameEl) {
+    const desc = card.querySelector('.item-desc');
+    if (desc) {
+      const isOpen = desc.classList.contains('revealed');
+      // Chiudi tutti gli altri nella stessa griglia
+      const grid = card.closest('.menu-grid');
+      if (grid) {
+        grid.querySelectorAll('.item-desc.revealed').forEach(d => {
+          d.classList.remove('revealed');
+          d.closest('.menu-item')?.querySelector('.item-name')?.classList.remove('open');
+        });
+      }
+      if (!isOpen) {
+        desc.classList.add('revealed');
+        nameEl.classList.add('open');
+      }
+    }
+  }
+}, { passive: true });
+
+// ── Contatore calici ──
+function updateGlassCounter() {
+  const count = Object.keys(myOrder).length;
+  const el    = document.getElementById('glass-counter');
+  const num   = document.getElementById('glass-counter-num');
+  if (!el || !num) return;
+
+  if (count > 0) {
+    el.classList.add('visible');
+    const prev = parseInt(num.textContent) || 0;
+    num.textContent = count;
+    if (count > prev) {
+      num.classList.remove('bump');
+      void num.offsetWidth;
+      num.classList.add('bump');
+      setTimeout(() => num.classList.remove('bump'), 300);
+    }
+  } else {
+    el.classList.remove('visible');
+  }
+}
+
+// ── Particelle al cambio categoria ──
+function spawnCatParticles(color) {
+  const emojis = ['🍷','✦','·','🫧','◆'];
+  const cx = window.innerWidth / 2;
+  const cy = 160; // circa sotto la sticky bar
+
+  for (let i = 0; i < 10; i++) {
+    const p = document.createElement('div');
+    p.className = 'cat-particle';
+    const angle = (Math.random() * 360) * Math.PI / 180;
+    const dist  = 40 + Math.random() * 80;
+    p.style.setProperty('--px', Math.cos(angle) * dist + 'px');
+    p.style.setProperty('--py', Math.sin(angle) * dist + 'px');
+    p.style.left  = (cx + (Math.random()-0.5)*60) + 'px';
+    p.style.top   = (cy + (Math.random()-0.5)*20) + 'px';
+    p.style.color = color;
+    p.style.animationDelay = (Math.random()*0.15) + 's';
+    p.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+    document.body.appendChild(p);
+    setTimeout(() => p.remove(), 900);
+  }
+}
+
+// Colori per categoria
+const CAT_COLORS = {
+  all: '#c17f3c', bollicine: '#b8860b', 'vini-bianchi': '#a07820',
+  'vini-rossi': '#8b1a1a', aperitivi: '#c4520a', birre: '#b06820',
+  cocktails: '#6b3fa0', gin: '#2e7d5e', cicchetti: '#c17f3c',
+  'cicchetti-caldi': '#c0392b', 'cicchetti-fissi': '#7d5a3c',
+  bibite: '#1a7a6e', analcolici: '#4a7c59',
+};
 
 /* ════════════════════════════════════════
    CITAZIONE DEL GIORNO
