@@ -740,6 +740,12 @@
     .menu-section[data-id="vini-rossi"] .section-header::after { background: linear-gradient(90deg, #8b1a1a, transparent); }
     .menu-section[data-id="vini-rossi"] .menu-item:hover { border-color: rgba(139,26,26,0.5); }
 
+    /* 🍷 Vini Rossi Bottiglia */
+    .menu-section[data-id="vini-rossi-bottiglia"] .section-title { color: #7a1515; }
+    .menu-section[data-id="vini-rossi-bottiglia"] .section-header::after { background: linear-gradient(90deg, #7a1515, transparent); }
+    .menu-section[data-id="vini-rossi-bottiglia"] .menu-item:hover { border-color: rgba(122,21,21,0.5); }
+    .menu-section[data-id="vini-rossi-bottiglia"] .menu-item::before { background: linear-gradient(180deg, #7a1515, #c0392b); }
+
     /* 🍊 Aperitivi */
     .menu-section[data-id="aperitivi"] .section-title { color: #c4520a; }
     .menu-section[data-id="aperitivi"] .section-header::after { background: linear-gradient(90deg, #c4520a, transparent); }
@@ -779,6 +785,12 @@
     .menu-section[data-id="bibite"] .section-title { color: #1a7a6e; }
     .menu-section[data-id="bibite"] .section-header::after { background: linear-gradient(90deg, #1a7a6e, transparent); }
     .menu-section[data-id="bibite"] .menu-item:hover { border-color: rgba(26,122,110,0.5); }
+
+    /* 🌿 Amari & Grappe */
+    .menu-section[data-id="amari"] .section-title { color: #3a7d44; }
+    .menu-section[data-id="amari"] .section-header::after { background: linear-gradient(90deg, #3a7d44, transparent); }
+    .menu-section[data-id="amari"] .menu-item:hover { border-color: rgba(58,125,68,0.5); }
+    .menu-section[data-id="amari"] .menu-item::before { background: linear-gradient(180deg, #3a7d44, #27ae60); }
 
     /* 🌿 Aperitivi Analcolici */
     .menu-section[data-id="analcolici"] .section-title { color: #4a7c59; }
@@ -1230,8 +1242,11 @@ const i18n = {
     tag_new: "Novità",
     empty: "Nessun prodotto trovato.",
     glutenNote: "Cicchetti senza glutine a 1€ in più (minimo 2)",
+    desc_bollicine_bott: "Dal Prosecco al Trentodoc Ferrari, dalla Franciacorta Ca' del Bosco allo Champagne Perrier-Jouët — bollicine per ogni grande occasione.",
+    desc_vini_bianchi_bott: "31 etichette selezionate: dagli autoctoni friulani ai vini naturali, dagli orange wine di Primosic ai grandi bianchi di Movia e Radikon.",
     desc_bollicine: "Le migliori bollicine del territorio, servite al calice per esaltarne i profumi e la freschezza.",
     desc_vini_bianchi: "Una selezione di vini bianchi dal Friuli Venezia Giulia e dintorni — etichette scelte per carattere, territorio e artigianalità.",
+    desc_vini_rossi_bott: "8 etichette rosse in bottiglia: dal Carso carsico alla Toscana di Antinori, passando per Isonzo, Alto Adige e Puglia.",
     desc_vini_rossi: "Rossi di personalità, dal Carso alla Puglia, selezionati per accompagnare ogni momento della serata.",
     desc_aperitivi: "L'aperitivo è un rito. Da noi lo celebriamo con Prosecco, spiriti selezionati e tanta voglia di stare insieme.",
     desc_birre: "Dalle lager classiche alle birre artigianali Antikorpo — per chi ama il luppolo in tutte le sue forme.",
@@ -1241,6 +1256,7 @@ const i18n = {
     desc_cicchetti_caldi: "Cicchetti preparati al momento e serviti caldi — il cuore caldo del nostro bancone.",
     desc_cicchetti_fissi: "I nostri cicchetti sempre presenti — un viaggio tra salumi, formaggi e specialità di mare che racconta il territorio.",
     desc_bibite: "Per chi preferisce dissetarsi senza alcol — dalle acque alle bibite premium Fever-Tree.",
+    desc_amari: "Amari del territorio, grappe Nonino e digestivi per chiudere in bellezza — dalla Friuli alla Calabria, dai Balcani alla Valtellina",
     desc_analcolici: "Tutto il gusto dell'aperitivo, senza alcol. Perché il piacere di stare insieme non ha bisogno di compromessi.",
   },
   en: {
@@ -1264,7 +1280,10 @@ const i18n = {
     empty: "No items found.",
     glutenNote: "Gluten-free cicchetti at +1€ each (minimum 2)",
     desc_bollicine: "The finest local sparkling wines, served by the glass to bring out their aromas and freshness.",
+    desc_bollicine_bott: "From Prosecco to Ferrari Trentodoc, Ca' del Bosco Franciacorta to Champagne Perrier-Jouët — for every great occasion.",
+    desc_vini_bianchi_bott: "31 bottles: Friulian natives, natural wines, orange wines from Primosic, Movia and Radikon.",
     desc_vini_bianchi: "A selection of white wines from Friuli Venezia Giulia and beyond — labels chosen for character, terroir and craftsmanship.",
+    desc_vini_rossi_bott: "8 red wines by the bottle: from Carso to Antinori Tuscany, through Isonzo, Alto Adige and Puglia.",
     desc_vini_rossi: "Full of personality reds, from Karst to Puglia, selected to accompany every moment of your evening.",
     desc_aperitivi: "The aperitivo is a ritual. We celebrate it with Prosecco, selected spirits and the joy of being together.",
     desc_birre: "From classic lagers to Antikorpo craft beers — for those who love hops in all their forms.",
@@ -1274,6 +1293,7 @@ const i18n = {
     desc_cicchetti_caldi: "Cicchetti prepared fresh and served hot — the warm heart of our counter.",
     desc_cicchetti_fissi: "Our ever-present cicchetti — a journey through cured meats, cheeses and seafood specialties that tells the story of our territory.",
     desc_bibite: "For those who prefer to refresh without alcohol — from waters to premium Fever-Tree soft drinks.",
+    desc_amari: "Bitters, Nonino grappas and digestifs to end in style — from Friuli to Calabria, from the Balkans to Valtellina",
     desc_analcolici: "All the taste of the aperitivo, without alcohol. Because the pleasure of being together needs no compromises.",
   },
   de: {
@@ -1297,7 +1317,10 @@ const i18n = {
     empty: "Keine Produkte gefunden.",
     glutenNote: "Glutenfreie Cicchetti für +1€ mehr (mindestens 2)",
     desc_bollicine: "Die besten Schaumweine der Region, glasweise serviert, um ihre Aromen und Frische zu betonen.",
+    desc_bollicine_bott: "Von Prosecco bis Ferrari Trentodoc, Ca' del Bosco Franciacorta bis Champagne Perrier-Jouët — für jeden besonderen Anlass.",
+    desc_vini_bianchi_bott: "31 Flaschen: friulanische Autochthone, Naturweine, Orange Wines von Primosic, Movia und Radikon.",
     desc_vini_bianchi: "Eine Auswahl an Weißweinen aus dem Friaul und der Umgebung — Etiketten, die für Charakter, Terroir und Handwerk ausgewählt wurden.",
+    desc_vini_rossi_bott: "8 Rotweinen in der Flasche: vom Karst bis zur Toskana von Antinori, durch Isonzo, Südtirol und Apulien.",
     desc_vini_rossi: "Persönlichkeitsstarke Rotweine vom Karst bis Apulien, ausgewählt für jeden Moment des Abends.",
     desc_aperitivi: "Der Aperitiv ist ein Ritual. Wir feiern ihn mit Prosecco, ausgewählten Spirituosen und viel Lebensfreude.",
     desc_birre: "Von klassischen Lagerbieren bis zu Antikorpo-Craftbieren — für alle, die Hopfen in all seinen Formen lieben.",
@@ -1307,6 +1330,7 @@ const i18n = {
     desc_cicchetti_caldi: "Frisch zubereitete und heiß servierte Cicchetti — das warme Herz unserer Theke.",
     desc_cicchetti_fissi: "Unsere immer präsenten Cicchetti — eine Reise durch Aufschnitt, Käse und Meeresfrüchte-Spezialitäten, die das Territorium erzählt.",
     desc_bibite: "Für alle, die sich ohne Alkohol erfrischen möchten — von Wasser bis zu premium Fever-Tree Getränken.",
+    desc_amari: "Amari der Region, Nonino-Grappas und Digestifs zum krönenden Abschluss — von Friaul bis Kalabrien, vom Balkan bis ins Veltlin",
     desc_analcolici: "Der volle Aperitivo-Genuss, ohne Alkohol. Denn das Vergnügen, zusammen zu sein, braucht keine Kompromisse.",
   },
 };
@@ -1418,6 +1442,23 @@ const MENU = [
       { name: { it: "Schiava — Tiefenbrunner", en: "Schiava — Tiefenbrunner", de: "Vernatsch — Tiefenbrunner" }, desc: { it: "Alto Adige, leggero e scorrevole, note di lampone", en: "Alto Adige, light and smooth, raspberry notes", de: "Südtirol, leicht und geschmeidig, Himbeer-Noten" }, price: "4.50", tags: [] },
       { name: { it: "Primitivo di Manduria — Altemura", en: "Primitivo di Manduria — Altemura", de: "Primitivo di Manduria — Altemura" }, desc: { it: "Puglia DOC, potente e vellutato, frutti neri maturi", en: "Puglia DOC, powerful and velvety, ripe black fruits", de: "Apulien DOC, kraftvoll und samtig, reife schwarze Früchte" }, price: "4.50", tags: [] },
       { name: { it: "Malvasia Nera — Paololeo", en: "Malvasia Nera — Paololeo", de: "Malvasia Nera — Paololeo" }, desc: { it: "Salento IGT, morbido con note di prugna e spezie", en: "Salento IGT, soft with plum and spice notes", de: "Salento IGT, weich mit Pflaumen und Gewürz-Noten" }, price: "4.50", tags: [] }]
+  },
+
+  /* ── VINI ROSSI BOTTIGLIA ── */
+  {
+    id: "vini-rossi-bottiglia",
+    icon: "🍷",
+    name: { it: "Vini Rossi — in bottiglia", en: "Red Wines — bottle", de: "Rotweine — Flasche" },
+    items: [
+      { name: { it: "Cabernet Franc — Castelvecchio", en: "Cabernet Franc — Castelvecchio", de: "Cabernet Franc — Castelvecchio" }, desc: { it: "Carso DOC, speziato e complesso, salvia e alloro, 2 anni in barrique", en: "Carso DOC, spicy and complex, sage and bay leaf, 2 years in barrique", de: "Carso DOC, würzig und komplex, Salbei und Lorbeer, 2 Jahre in Barrique" }, price: "33", tags: [] },
+      { name: { it: "Cabernet Sauvignon — Castello di Spessa", en: "Cabernet Sauvignon — Castello di Spessa", de: "Cabernet Sauvignon — Castello di Spessa" }, desc: { it: "Collio, ribes nero e more, speziato e tannico, affinato nelle cantine medievali", en: "Collio, blackcurrant and blackberries, spicy and tannic, aged in medieval cellars", de: "Collio, Schwarze Johannisbeere und Brombeeren, würzig und tannisch" }, price: "29", tags: [] },
+      { name: { it: "Pinot Nero — Masut da Rive", en: "Pinot Nero — Masut da Rive", de: "Pinot Nero — Masut da Rive" }, desc: { it: "Isonzo, elegante e fine, frutti rossi di bosco e viola, terreni ghiaiosi minerali", en: "Isonzo, elegant and fine, red forest fruits and violet, mineral gravelly soils", de: "Isonzo, elegant und fein, rote Waldfrüchte und Veilchen, mineralische Kieselböden" }, price: "40", tags: [] },
+      { name: { it: "Sassirossi — Masut da Rive", en: "Sassirossi — Masut da Rive", de: "Sassirossi — Masut da Rive" }, desc: { it: "Isonzo, Merlot e Cabernet, argille rosse, tannini morbidi e lunga persistenza", en: "Isonzo, Merlot and Cabernet, red clay, soft tannins and long persistence", de: "Isonzo, Merlot und Cabernet, roter Ton, weiche Tannine und lange Persistenz" }, price: "35", tags: [] },
+      { name: { it: "Schiava — Tiefenbrunner", en: "Schiava — Tiefenbrunner", de: "Schiava — Tiefenbrunner" }, desc: { it: "Alto Adige, rubino chiaro, ciliegia e viola, leggero e scorrevole, anche leggermente fresco", en: "Alto Adige, light ruby, cherry and violet, light and flowing, also slightly chilled", de: "Südtirol, helles Rubinrot, Kirsche und Veilchen, leicht und fliessend, auch leicht gekühlt" }, price: "29", tags: [] },
+      { name: { it: "Primitivo di Manduria — Altemura", en: "Primitivo di Manduria — Altemura", de: "Primitivo di Manduria — Altemura" }, desc: { it: "Puglia, caldo e avvolgente, frutti rossi in confettura, 14 mesi in tonneau", en: "Puglia, warm and enveloping, jam red fruits, 14 months in tonneau", de: "Apulien, warm und umhüllend, Fruchtaufstrich rote Früchte, 14 Monate im Tonneau" }, price: "29", tags: [] },
+      { name: { it: "Malvasia Nera — Paololeo", en: "Malvasia Nera — Paololeo", de: "Malvasia Nera — Paololeo" }, desc: { it: "Salento, more e gelsi maturi, spezie dolci, tannini setosi e finale lungo", en: "Salento, ripe blackberries and mulberries, sweet spices, silky tannins and long finish", de: "Salento, reife Brombeeren und Maulbeeren, süße Gewürze, seidene Tannine" }, price: "29", tags: [] },
+      { name: { it: "Chianti Classico — Marchese Antinori", en: "Chianti Classico — Marchese Antinori", de: "Chianti Classico — Marchese Antinori" }, desc: { it: "Toscana, Sangiovese 90%, frutti rossi e spezie, tannini morbidi, Tenuta Tignanello", en: "Tuscany, 90% Sangiovese, red fruits and spices, soft tannins, Tenuta Tignanello", de: "Toskana, 90% Sangiovese, rote Früchte und Gewürze, weiche Tannine, Tenuta Tignanello" }, price: "40", tags: [] },
+    ]
   },
 
   /* ── APERITIVI ── */
@@ -1589,7 +1630,33 @@ const MENU = [
       { name: { it: "Virgin Colada", en: "Virgin Colada", de: "Virgin Colada" }, desc: { it: "Succo di ananas, crema di cocco e ghiaccio", en: "Pineapple juice, coconut cream and ice", de: "Ananassaft, Kokosnusscreme und Eis" }, price: "5.00", tags: ["zero"] },
     ]
   },
+,
 
+  /* ── AMARI E GRAPPE ── */
+  {
+    id: "amari",
+    icon: "🌿",
+    name: { it: "Amari & Grappe", en: "Bitters & Grappa", de: "Amari & Grappa" },
+    items: [
+      { name: { it: "Amaro Nonino Quintessentia", en: "Amaro Nonino Quintessentia", de: "Amaro Nonino Quintessentia" }, desc: { it: "Friuli, erbe alpine e acquavite d'uva 12 mesi in barrique, ambrato e armonico", en: "Friuli, alpine herbs and grape distillate 12 months in barrique, amber and harmonious", de: "Friaul, Alpenkräuter und 12 Monate Barrique-Traubendestillat, bernsteinfarben" }, price: "5", tags: [] },
+      { name: { it: "Amaro del Capo", en: "Amaro del Capo", de: "Amaro del Capo" }, desc: { it: "Calabria, 29 botaniche, menta anice e liquirizia, capolavoro ghiacciato a -20°C", en: "Calabria, 29 botanicals, mint anise and licorice, masterpiece frozen at -20°C", de: "Kalabrien, 29 Botanicals, Minze Anis und Lakritze, Meisterwerk gefroren bei -20°C" }, price: "5", tags: [] },
+      { name: { it: "Amaro del Carso", en: "Amaro del Carso", de: "Amaro del Carso" }, desc: { it: "Carso triestino, erbe carsiche locali, botaniche di confine, amaro del territorio", en: "Trieste Karst, local Karst herbs, border botanicals, territorial bitter", de: "Triester Karst, lokale Karstkräuter, Grenzbotanicals, regionaler Bitter" }, price: "5", tags: [] },
+      { name: { it: "Amaro Ottanta", en: "Amaro Ottanta", de: "Amaro Ottanta" }, desc: { it: "Friuli, 80 botaniche selezionate, artigianale, complesso e bilanciato", en: "Friuli, 80 selected botanicals, artisanal, complex and balanced", de: "Friaul, 80 ausgewählte Botanicals, handwerklich, komplex und ausgewogen" }, price: "5", tags: [] },
+      { name: { it: "Jägermeister", en: "Jägermeister", de: "Jägermeister" }, desc: { it: "Germania, 56 erbe spezie e radici, anice liquirizia e agrumi, iconico digestivo", en: "Germany, 56 herbs spices and roots, anise licorice and citrus, iconic digestif", de: "Deutschland, 56 Kräuter Gewürze und Wurzeln, Anis Lakritze Zitrus, ikonischer Digestif" }, price: "5", tags: [] },
+      { name: { it: "Montenegro", en: "Montenegro", de: "Montenegro" }, desc: { it: "Bologna 1885, 40 botaniche da 4 continenti, vaniglia e arancia, liquore delle virtù", en: "Bologna 1885, 40 botanicals from 4 continents, vanilla and orange, liqueur of virtues", de: "Bologna 1885, 40 Botanicals aus 4 Kontinenten, Vanille und Orange, Tugendlikör" }, price: "5", tags: [] },
+      { name: { it: "Amaro Braulio", en: "Amaro Braulio", de: "Amaro Braulio" }, desc: { it: "Valtellina, 24 mesi in rovere di Slavonia, erbe alpine balsamiche, intenso e avvolgente", en: "Valtellina, 24 months Slavonian oak, balsamic alpine herbs, intense and enveloping", de: "Valtellina, 24 Monate slawonische Eiche, balsamische Alpenkräuter, intensiv" }, price: "5", tags: [] },
+      { name: { it: "Pelinkovac Knez", en: "Pelinkovac Knez", de: "Pelinkovac Knez" }, desc: { it: "Trieste, assenzio e botaniche balcaniche, rabarbaro e fiori di sambuco, 0% coloranti", en: "Trieste, wormwood and Balkan botanicals, rhubarb and elderflower, 0% colorants", de: "Triest, Wermut und Balkan-Botanicals, Rhabarber und Holunderblüten, 0% Farbstoffe" }, price: "5", tags: [] },
+      { name: { it: "Limoncello", en: "Limoncello", de: "Limoncello" }, desc: { it: "Scorze di limone in infusione, fresco e agrumato, il digestivo del sole", en: "Lemon peel infusion, fresh and citrusy, the digestif of the sun", de: "Zitronenschaleninfusion, frisch und zitrusartig, der Digestif der Sonne" }, price: "5", tags: [] },
+      { name: { it: "Sambuca", en: "Sambuca", de: "Sambuca" }, desc: { it: "Anice stellato e liquirizia, dolce e persistente, servita con la mosca", en: "Star anise and licorice, sweet and persistent, served with the fly", de: "Sternanis und Lakritze, süß und persistent, mit der Fliege serviert" }, price: "5", tags: [] },
+      { name: { it: "Grappa Nonino Bianca", en: "Grappa Nonino Bianca", de: "Grappa Nonino Bianca" }, desc: { it: "Percoto, Friuli, vinacce fresche selezionate, cristallina e pulita, alambicco di rame", en: "Percoto, Friuli, fresh selected pomace, crystal clear and clean, copper still", de: "Percoto, Friaul, frische ausgewählte Trester, kristallklar und sauber, Kupferbrenner" }, price: "5", tags: [] },
+      { name: { it: "Grappa Nonino Monovitigno Malvasia", en: "Grappa Nonino Monovitigno Malvasia", de: "Grappa Nonino Monovitigno Malvasia" }, desc: { it: "Percoto, Malvasia in purezza, floreale e aromatica, frutta tropicale e fiori esotici", en: "Percoto, pure Malvasia pomace, floral and aromatic, tropical fruit and exotic flowers", de: "Percoto, reiner Malvasia-Trester, blumig und aromatisch, Tropenfrüchte" }, price: "5", tags: [] },
+      { name: { it: "Grappa Nonino Monovitigno Fragolino", en: "Grappa Nonino Monovitigno Fragolino", de: "Grappa Nonino Monovitigno Fragolino" }, desc: { it: "Percoto, uva Fragola del Friuli, frutti di bosco e mirtillo, elegante e morbida", en: "Percoto, Fragola grape from Friuli, forest fruits and blueberry, elegant and soft", de: "Percoto, Fragola-Traube aus Friaul, Waldfrüchte und Heidelbeere, elegant" }, price: "5", tags: [] },
+      { name: { it: "Grappa Nonino Monovitigno Uva Bianca", en: "Grappa Nonino Monovitigno Uva Bianca", de: "Grappa Nonino Monovitigno Uva Bianca" }, desc: { it: "Percoto, cuvée Chardonnay Pinot Bianco e Malvasia friulani, elegante e delicata", en: "Percoto, Chardonnay Pinot Bianco and Malvasia cuvée, elegant and delicate", de: "Percoto, Chardonnay Pinot Bianco und Malvasia Cuvée, elegant und delikat" }, price: "5", tags: [] },
+      { name: { it: "Grappa Nonino Barricata 24 mesi", en: "Grappa Nonino Barricata 24 months", de: "Grappa Nonino Barricata 24 Monate" }, desc: { it: "Percoto, 24 mesi in barrique, ambrata e vellutata, mela verde cioccolato e vaniglia", en: "Percoto, 24 months in barrique, amber and velvety, green apple chocolate and vanilla", de: "Percoto, 24 Monate in Barrique, bernsteinfarben und samtig, Grünapfel Schokolade Vanille" }, price: "5", tags: [] },
+      { name: { it: "Grappa Nonino Barricata 5 anni", en: "Grappa Nonino Barricata 5 years", de: "Grappa Nonino Barricata 5 Jahre" }, desc: { it: "Percoto, 5 anni in barrique, tostatura miele e spezie dolci, grande complessità", en: "Percoto, 5 years in barrique, toasty notes honey and sweet spices, great complexity", de: "Percoto, 5 Jahre in Barrique, Röstaromen Honig und süße Gewürze, große Komplexität" }, price: "7", tags: [] },
+      { name: { it: "Grappa Nonino Barricata 8 anni", en: "Grappa Nonino Barricata 8 years", de: "Grappa Nonino Barricata 8 Jahre" }, desc: { it: "Percoto, 8 anni in barrique, ambra profondo, cioccolato fondente tabacco e frutta secca", en: "Percoto, 8 years in barrique, deep amber, dark chocolate tobacco and dried fruit", de: "Percoto, 8 Jahre in Barrique, tiefes Bernstein, Zartbitterschokolade Tabak Trockenfrüchte" }, price: "9", tags: [] },
+    ]
+  }
 ];
 
 /* ════════════════════════════════════════
@@ -1625,6 +1692,7 @@ const SOMMELIER = {
   "Franciacorta Dosage Zero — Ca' del Bosco": { temp:"6-8°C", food:"Ostriche, crudi, pesce nobile, formaggi freschi, cucina orientale", color:"Giallo paglierino carico con perlage finissimo e persistente", nose:"Mela, agrumi, pane tostato, nocciola, note minerali", territory:"Franciacorta DOCG, Erbusco (BS). Vintage Collection, la trilogia del millesimo di Ca' del Bosco.", grape:"Chardonnay 65%, Pinot Nero 22%, Pinot Bianco 13%. 48 mesi sui lieviti, zero zucchero aggiunto.", style:"Puro e sincero, senza compromessi. Il massimo dell'espressione del terroir di Franciacorta." },
   "Champagne Perrier-Jouet Grand Brut": { temp:"7-9°C", food:"Aperitivo di lusso, ostriche, salmone, crostacei, formaggi delicati", color:"Giallo paglierino luminoso con perlage elegante e persistente", nose:"Fiori bianchi, mela verde, agrumi, note tostate delicate", territory:"Epernay, Champagne, Francia. Perrier-Jouet, maison fondata nel 1811, celebre per la Cuvee Belle Epoque.", grape:"Chardonnay, Pinot Nero, Pinot Meunier. Assemblaggio di vini di riserva per garantire continuita di stile.", style:"Elegante e fresco, floreale e bilanciato. Il Grand Brut classico per le grandi occasioni." },
 
+  "Chianti Classico — Marchese Antinori": { temp:"16-18°C", food:"Bistecca fiorentina, selvaggina, arrosti, formaggi stagionati, pasta al ragu", color:"Rosso rubino intenso con riflessi granati", nose:"Frutti rossi maturi, mirtillo, lampone, sentori boisé, spezie dolci", territory:"Chianti Classico DOCG, Tenuta Tignanello, Val di Pesa (FI). Famiglia Antinori, oltre 600 anni di storia vitivinicola dal 1385.", grape:"Sangiovese 90%, Cabernet Sauvignon 10%. 12 mesi in barrique di rovere francese e ungherese, poi 12 mesi in bottiglia.", style:"Avvolgente ed elegante, tannini morbidi e setosi. La Toscana classica firmata Antinori." },
   "Malvasia Nera — Paololeo": { temp:"15-18°C", food:"Carni alla brace, ragu, salumi, formaggi stagionati", color:"Rosso rubino intenso", nose:"More, gelsi maturi, prugne appassite, spezie dolci, finale morbido", territory:"Salento IGT, San Donaci (BR). Puglia meridionale, clima mediterraneo caldo con suoli argillosi.", grape:"Malvasia Nera 100%. Vitigno autoctono del Salento, dalla storia millenaria.", style:"Aromatico e avvolgente, con tannini setosi e un finale lungo di spezie dolci." },
 
   // VINI BIANCHI BOTTIGLIA — nuove schede
@@ -1845,7 +1913,8 @@ function _renderContent(main) {
       'bollicine-bottiglia':    'desc_bollicine_bott',
       'vini-bianchi':         'desc_vini_bianchi',
       'vini-bianchi-bottiglia': 'desc_vini_bianchi_bott',
-      'vini-rossi':      'desc_vini_rossi',
+      'vini-rossi':            'desc_vini_rossi',
+      'vini-rossi-bottiglia':  'desc_vini_rossi_bott',
       'aperitivi':       'desc_aperitivi',
       'birre':           'desc_birre',
       'cocktails':       'desc_cocktails',
@@ -1855,6 +1924,7 @@ function _renderContent(main) {
       'cicchetti-fissi': 'desc_cicchetti_fissi',
       'bibite':          'desc_bibite',
       'analcolici':      'desc_analcolici',
+      'amari':           'desc_amari',
     };
     const descKey = descMap[section.id];
     const descHtml = descKey ? `<p class="section-desc">${t(descKey)}</p>` : '';
