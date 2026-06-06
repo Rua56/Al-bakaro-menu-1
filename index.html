@@ -3113,6 +3113,156 @@ render();
 
 
 /* ════════════════════════════════════════
+   SORPRENDIMI
+════════════════════════════════════════ */
+(function() {
+
+  // Vini per profilo
+  const PROFILES = {
+    fresco:      { label: '🌿 Fresco & Leggero',    emoji: '🌿',  ids: ['vini-bianchi','bollicine'] },
+    strutturato: { label: '🍷 Corposo & Rosso',      emoji: '🍷',  ids: ['vini-rossi'] },
+    bollicine:   { label: '🥂 Bollicine!',           emoji: '🥂',  ids: ['bollicine'] },
+    avventuroso: { label: '🌍 Avventuroso',          emoji: '🌍',  ids: ['vini-bianchi','vini-rossi','cocktails'] },
+    locale:      { label: '📍 Locale & Territorio',  emoji: '📍',  ids: ['vini-bianchi','vini-rossi','bollicine'] },
+    dolce:       { label: '🍯 Dolce & Aromatico',    emoji: '🍯',  ids: ['vini-bianchi','aperitivi'] },
+  };
+
+  // Storico tavolo — vini già estratti questa sessione
+  let tableHistory = []; // [{person: emoji, wine, price}]
+  let currentWine  = null;
+  let currentProfile = null;
+
+  window.openSurprise = function() {
+    document.getElementById('surprise-overlay').classList.add('show');
+    showStep(1);
+  };
+
+  window.closeSurprise = function() {
+    document.getElementById('surprise-overlay').classList.remove('show');
+  };
+
+  function showStep(n) {
+    document.getElementById('surprise-step1').style.display = n === 1 ? 'block' : 'none';
+    const s2 = document.getElementById('surprise-step2');
+    s2.classList.toggle('show', n === 2);
+    document.getElementById('surprise-step3').classList.toggle('show', n === 3);
+  }
+
+  window.runSurprise = function(profileKey) {
+    currentProfile = PROFILES[profileKey];
+    showStep(2);
+    vibrate([30, 80, 30]);
+
+    setTimeout(() => {
+      const wine = pickWine(profileKey);
+      if (!wine) { showStep(1); return; }
+      currentWine = wine;
+      displayResult(wine, currentProfile);
+      showStep(3);
+    }, 2000);
+  };
+
+  window.runSurpriseAgain = function() {
+    if (currentProfile) {
+      showStep(2);
+      setTimeout(() => {
+        const profileKey = Object.keys(PROFILES).find(k => PROFILES[k] === currentProfile);
+        const wine = pickWine(profileKey);
+        if (!wine) return;
+        currentWine = wine;
+        displayResult(wine, currentProfile);
+        showStep(3);
+      }, 1500);
+    }
+  };
+
+  window.surpriseNextPerson = function() {
+    // Salva il vino corrente nella storia del tavolo
+    if (currentWine) {
+      const persons = ['😀','😊','🙂','😄','🤩','😎','🥳','😍'];
+      tableHistory.push({
+        person: persons[(tableHistory.length) % persons.length],
+        wine: currentWine.name,
+        price: currentWine.price,
+      });
+    }
+    showStep(1);
+    vibrate(20);
+  };
+
+  function pickWine(profileKey) {
+    const profile = PROFILES[profileKey];
+    // Raccoglie tutti i vini delle categorie del profilo
+    const candidates = [];
+    profile.ids.forEach(catId => {
+      const sec = MENU.find(s => s.id === catId);
+      if (!sec) return;
+      sec.items.forEach(item => {
+        const name = item.name['it'];
+        const alreadyPicked = tableHistory.some(h => h.wine === name);
+        if (!alreadyPicked && item.price !== '—' && item.price !== 'GIN') {
+          candidates.push({ name, price: item.price, cat: catId });
+        }
+      });
+    });
+    if (!candidates.length) return null;
+    return candidates[Math.floor(Math.random() * candidates.length)];
+  }
+
+  function displayResult(wine, profile) {
+    document.getElementById('sur-profile-label').textContent = profile.label;
+    document.getElementById('sur-wine-name').textContent  = wine.name;
+    document.getElementById('sur-wine-price').textContent = '€ ' + wine.price;
+
+    // Scheda sommelier se disponibile
+    const som = SOMMELIER[wine.name];
+    document.getElementById('sur-temp').textContent  = som?.temp  || '—';
+    document.getElementById('sur-nose').textContent  = som?.nose  || '—';
+    document.getElementById('sur-food').textContent  = som?.food  || '—';
+    document.getElementById('sur-style').textContent = som?.style || '—';
+
+    // Bottone aggiungi ordine
+    const orderBtn = document.getElementById('sur-order-btn');
+    orderBtn.onclick = () => {
+      if (!myOrder[wine.name]) {
+        myOrder[wine.name] = { name: wine.name, price: wine.price, cat: wine.cat, qty: 1 };
+      } else {
+        myOrder[wine.name].qty++;
+      }
+      updateOrderUI();
+      updateGlassCounter();
+      orderBtn.textContent = '✓ Aggiunto!';
+      orderBtn.style.background = '#27ae60';
+      vibrate([20,60,40]);
+      setTimeout(() => {
+        orderBtn.textContent = "🍷 Aggiungi all'ordine";
+        orderBtn.style.background = '';
+      }, 1500);
+    };
+
+    // Aggiorna riepilogo tavolo
+    updateTableSummary();
+  }
+
+  function updateTableSummary() {
+    const summary = document.getElementById('sur-table-summary');
+    const list    = document.getElementById('sur-table-list');
+    if (!tableHistory.length) {
+      summary.style.display = 'none';
+      return;
+    }
+    summary.style.display = 'block';
+    list.innerHTML = tableHistory.map(h => `
+      <div class="surprise-table-item">
+        <span class="surprise-table-person">${h.person}</span>
+        <span class="surprise-table-wine">${h.wine}</span>
+        <span class="surprise-table-wine-price">€${h.price}</span>
+      </div>`).join('');
+  }
+
+})();
+
+/* ════════════════════════════════════════
    PARALLASSE 3D CARD
 ════════════════════════════════════════ */
 (function() {
