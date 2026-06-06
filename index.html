@@ -2595,7 +2595,7 @@ function buildCatNav() {
   const all = document.createElement('button');
   all.className = 'cat-btn' + (currentCat === 'all' ? ' active' : '');
   all.innerHTML = `<span class="cat-btn-icon">🍽️</span> ${t('all')}`;
-  all.onclick = () => { currentCat = 'all'; spawnCatParticles(CAT_COLORS['all'] || '#c17f3c'); render(true); };
+  all.addEventListener('click', () => { if (!nav._wasDragging) { currentCat = 'all'; spawnCatParticles(CAT_COLORS['all'] || '#c17f3c'); render(true); } });
   nav.appendChild(all);
 
   MENU.forEach(sec => {
@@ -2603,7 +2603,13 @@ function buildCatNav() {
     btn.className = 'cat-btn' + (currentCat === sec.id ? ' active' : '');
     const count = sec.items.length;
     btn.innerHTML = `<span class="cat-btn-icon">${sec.icon}</span> ${sec.name[currentLang]}<span class="cat-badge">${count}</span>`;
-    btn.onclick = () => { currentCat = sec.id; spawnCatParticles(CAT_COLORS[sec.id] || '#c17f3c'); render(true); };
+    btn.addEventListener('click', () => {
+      if (!nav._wasDragging) {
+        currentCat = sec.id;
+        spawnCatParticles(CAT_COLORS[sec.id] || '#c17f3c');
+        render(true);
+      }
+    });
     nav.appendChild(btn);
   });
 
@@ -3288,6 +3294,67 @@ render();
     card.style.transform = '';
     card.classList.remove('tilt');
   }, { passive: true });
+})();
+
+/* ════════════════════════════════════════
+   DRAG-TO-SCROLL CATEGORIA NAV
+════════════════════════════════════════ */
+(function() {
+  const nav = document.getElementById('catNav');
+  if (!nav) return;
+
+  let startX = 0;
+  let scrollLeft = 0;
+  let isDragging = false;
+  let moved = false;
+
+  nav.addEventListener('touchstart', e => {
+    startX    = e.touches[0].clientX;
+    scrollLeft = nav.scrollLeft;
+    isDragging = true;
+    moved = false;
+    nav._wasDragging = false;
+  }, { passive: true });
+
+  nav.addEventListener('touchmove', e => {
+    if (!isDragging) return;
+    const dx = e.touches[0].clientX - startX;
+    if (Math.abs(dx) > 5) {
+      moved = true;
+      nav._wasDragging = true;
+      nav.scrollLeft = scrollLeft - dx;
+    }
+  }, { passive: true });
+
+  nav.addEventListener('touchend', () => {
+    isDragging = false;
+    // Reset _wasDragging dopo un tick così il click handler lo vede
+    setTimeout(() => { nav._wasDragging = false; }, 50);
+  }, { passive: true });
+
+  // Mouse drag (desktop)
+  nav.addEventListener('mousedown', e => {
+    isDragging = true;
+    moved = false;
+    nav._wasDragging = false;
+    startX = e.clientX;
+    scrollLeft = nav.scrollLeft;
+    nav.style.cursor = 'grabbing';
+  });
+  window.addEventListener('mousemove', e => {
+    if (!isDragging) return;
+    const dx = e.clientX - startX;
+    if (Math.abs(dx) > 5) {
+      moved = true;
+      nav._wasDragging = true;
+      nav.scrollLeft = scrollLeft - dx;
+    }
+  });
+  window.addEventListener('mouseup', () => {
+    isDragging = false;
+    nav.style.cursor = 'grab';
+    setTimeout(() => { nav._wasDragging = false; }, 50);
+  });
 })();
 
 /* ════════════════════════════════════════
